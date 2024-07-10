@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import * as todoApi from '@/todos/helpers/todos' 
 import { useRouter } from "next/navigation";
+import { addTodo, deleteCompleted } from "../actions/todo-actions";
 
 
 export const NewTodo = () => { 
@@ -15,16 +16,9 @@ export const NewTodo = () => {
         e.preventDefault();
         if(description.trim().length === 0) return
 
-        todoApi.createTodo(description);
-
-        router.refresh();
+        addTodo(description);
 
         setDescription('');
-    }
-
-    const deleteCompleted =async()=>{
-        await todoApi.deleteCompletedTodos();
-        router.refresh();
     }
 
     return (
@@ -42,7 +36,7 @@ export const NewTodo = () => {
         <span className='flex flex-1'></span>
 
         <button 
-            onClick={ deleteCompleted }
+            onClick={ ()=>deleteCompleted() }
             type='button' className="flex items-center justify-center rounded ml-2 bg-red-400 p-2 text-white hover:bg-red-700 transition-all">
             <IoTrashOutline />
             Borrar completados
