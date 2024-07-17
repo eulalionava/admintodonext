@@ -6,8 +6,9 @@ import { useEffect } from "react";
 
 export default function ProfilePage() {
     const {data:session} = useSession();
-    useEffect(()=>{
 
+    useEffect(()=>{
+        console.log(session?.user);
     },[]);
 
     return (
